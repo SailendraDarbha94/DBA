@@ -1,98 +1,90 @@
-import { Image } from 'expo-image';
-import { Platform, StyleSheet } from 'react-native';
-
-import { HelloWave } from '@/components/hello-wave';
-import ParallaxScrollView from '@/components/parallax-scroll-view';
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
-import { Link } from 'expo-router';
+import { Linking, ScrollView, StyleSheet } from 'react-native';
 
 export default function HomeScreen() {
   return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
-      headerImage={
-        <Image
-          source={require('@/assets/images/partial-react-logo.png')}
-          style={styles.reactLogo}
-        />
-      }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Welcome!</ThemedText>
-        <HelloWave />
+    <ScrollView contentContainerStyle={{ padding: 24 }}>
+      <ThemedView style={styles.section}>
+        <ThemedText type="title" style={styles.center}>Darbha Babu Rao</ThemedText>
+        <ThemedText style={styles.center}>Educator • Scholar • Poet • Playwright</ThemedText>
+        <ThemedText style={styles.center}>DATE OF BIRTH</ThemedText>
+        <ThemedText style={styles.center}>9th February, 1946</ThemedText>
+        <ThemedText style={styles.center}>PLACE OF BIRTH</ThemedText>
+        <ThemedText style={styles.center}>Bapatla, Andhra Pradesh</ThemedText>
+        <ThemedText style={styles.center}>FATHER</ThemedText>
+        <ThemedText style={styles.center}>Late Sri Darbha Lakshmi Narayana Sastry</ThemedText>
+        <ThemedText style={styles.center}>MOTHER</ThemedText>
+        <ThemedText style={styles.center}>Late Smt. Darbha Jwala Annapurna Visalakshi</ThemedText>
       </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 1: Try it</ThemedText>
-        <ThemedText>
-          Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
-          Press{' '}
-          <ThemedText type="defaultSemiBold">
-            {Platform.select({
-              ios: 'cmd + d',
-              android: 'cmd + m',
-              web: 'F12',
-            })}
-          </ThemedText>{' '}
-          to open developer tools.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <Link href="/modal">
-          <Link.Trigger>
-            <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-          </Link.Trigger>
-          <Link.Preview />
-          <Link.Menu>
-            <Link.MenuAction title="Action" icon="cube" onPress={() => alert('Action pressed')} />
-            <Link.MenuAction
-              title="Share"
-              icon="square.and.arrow.up"
-              onPress={() => alert('Share pressed')}
-            />
-            <Link.Menu title="More" icon="ellipsis">
-              <Link.MenuAction
-                title="Delete"
-                icon="trash"
-                destructive
-                onPress={() => alert('Delete pressed')}
-              />
-            </Link.Menu>
-          </Link.Menu>
-        </Link>
 
-        <ThemedText>
-          {`Tap the Explore tab to learn more about what's included in this starter app.`}
-        </ThemedText>
+      <ThemedView style={styles.section}>
+        <ThemedText type="subtitle">Education</ThemedText>
+        <ThemedText>ELEMENTARY</ThemedText>
+        <ThemedText style={styles.bold}>Mamillapalli Sitaramaiah Elementary School</ThemedText>
+        <ThemedText>Bapatla, AP</ThemedText>
+        <ThemedText>HIGH SCHOOL</ThemedText>
+        <ThemedText style={styles.bold}>Board/Municipal High School</ThemedText>
+        <ThemedText>Bapatla, AP</ThemedText>
+        <ThemedText>PRE-UNIVERSITY (PUC)</ThemedText>
+        <ThemedText style={styles.bold}>VRS & YRN College of Arts and Science</ThemedText>
+        <ThemedText>Chirala, AP</ThemedText>
+        <ThemedText>GRADUATION (B.COM)</ThemedText>
+        <ThemedText style={styles.bold}>C S R Sarma College</ThemedText>
+        <ThemedText>Ongole, AP</ThemedText>
+        <ThemedText>POST-GRADUATION (M.COM)</ThemedText>
+        <ThemedText style={styles.bold}>Andhra University</ThemedText>
+        <ThemedText>Visakhapatnam, AP</ThemedText>
       </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
-        <ThemedText>
-          {`When you're ready, run `}
-          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
-          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
-        </ThemedText>
+
+      <ThemedView style={styles.section}>
+        <ThemedText type="subtitle">Career</ThemedText>
+        <ThemedText>1998 – 2004</ThemedText>
+        <ThemedText style={styles.bold}>Head of Department of Commerce</ThemedText>
+        <ThemedText>The Bapatla College of Arts & Sciences, Bapatla (AP)</ThemedText>
+        <ThemedText>Retired 2004</ThemedText>
+        <ThemedText style={styles.bold}>Vice-Principal</ThemedText>
+        <ThemedText>The Bapatla College of Arts & Sciences, Bapatla (AP)</ThemedText>
       </ThemedView>
-    </ParallaxScrollView>
+
+      <ThemedView style={styles.section}>
+        <ThemedText type="subtitle">Literary Works</ThemedText>
+        <ThemedText>Explore the poetry and talks of Darbha Babu Rao.</ThemedText>
+        <ThemedText style={styles.link} onPress={() => Linking.openURL('https://darbha-baburao-web-dashboard.vercel.app/poetry')}>✍ Poetry 1 poem in the collection  Browse poetry →</ThemedText>
+        <ThemedText style={styles.link} onPress={() => Linking.openURL('https://darbha-baburao-web-dashboard.vercel.app/talks')}>🎭 Talks 3 talks in the collection  Browse talks →</ThemedText>
+      </ThemedView>
+
+      <ThemedView style={styles.section}>
+        <ThemedText type="subtitle">Additional Links</ThemedText>
+        <ThemedText style={styles.link} onPress={() => Linking.openURL('https://darbha-baburao-web-dashboard.vercel.app/poetry')}>Poetry</ThemedText>
+        <ThemedText style={styles.link} onPress={() => Linking.openURL('https://darbha-baburao-web-dashboard.vercel.app/talks')}>Talks</ThemedText>
+        <ThemedText style={styles.link} onPress={() => Linking.openURL('https://darbha-baburao-web-dashboard.vercel.app/admin/login')}>Admin Login</ThemedText>
+        <ThemedText style={styles.link} onPress={() => Linking.openURL('https://darbha-baburao-web-dashboard.vercel.app/privacy')}>Privacy Policy</ThemedText>
+        <ThemedText style={styles.link} onPress={() => Linking.openURL('https://darbha-baburao-web-dashboard.vercel.app/terms')}>Terms & Conditions</ThemedText>
+      </ThemedView>
+
+      <ThemedText style={[styles.center, { marginTop: 32, fontSize: 12 }]}>© 2026 Darbha Babu Rao. All rights reserved.</ThemedText>
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
-  titleContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
+  section: {
+    marginBottom: 24,
+    padding: 16,
+    borderRadius: 8,
+    backgroundColor: 'rgba(0,0,0,0.03)',
   },
-  stepContainer: {
-    gap: 8,
-    marginBottom: 8,
+  center: {
+    textAlign: 'center',
+    marginBottom: 4,
   },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: 'absolute',
+  bold: {
+    fontWeight: 'bold',
+  },
+  link: {
+    color: '#007AFF',
+    textDecorationLine: 'underline',
+    marginBottom: 4,
   },
 });
