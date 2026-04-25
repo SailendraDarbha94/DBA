@@ -12,6 +12,7 @@ import { app } from '../lib/firebaseConfig';
 export default function PlaysScreen() {
   const [plays, setPlays] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
+  const [comingSoon, setComingSoon] = useState<any[]>([]);
   const db = getFirestore(app);
   const router = useRouter();
   const colorScheme = useColorScheme() ?? 'light';
@@ -36,18 +37,53 @@ export default function PlaysScreen() {
     fetchAllPlays();
   }, []);
 
+  useEffect(() => {
+    const fetchComingSoon = async () => {
+      try {
+        const comingSoonCollection = collection(db, 'coming-soon');
+        const querySnapshot = await getDocs(comingSoonCollection);
+        const filtered = querySnapshot.docs
+          .map(doc => ({ id: doc.id, ...doc.data() }))
+          .filter((item: any) => item.type === 'talk');
+        setComingSoon(filtered);
+      } catch (error) {
+        console.error('Error fetching coming soon:', error);
+      }
+    };
+    fetchComingSoon();
+  }, []);
+
   return (
     <ThemedView style={styles.container}>
       <View style={[styles.header, { backgroundColor: colors.tint }]}>
-        <ThemedText style={styles.headerTitle}>Plays</ThemedText>
+        <ThemedText style={styles.headerTitle}>Talks</ThemedText>
         <ThemedText style={styles.headerSubtitle}>Works of Darbha Babu Rao</ThemedText>
       </View>
       <ScrollView contentContainerStyle={styles.scrollContent}>
+        {comingSoon.length > 0 && (
+          <View style={styles.comingSoonSection}>
+            <ThemedText style={[styles.comingSoonLabel, { color: colors.muted }]}>COMING SOON</ThemedText>
+            <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.comingSoonScroll}>
+              {comingSoon.map((item) => (
+                <View key={item.id} style={[styles.comingSoonCard, { backgroundColor: colors.card, borderColor: colors.border }]}>
+                  <ThemedText style={[styles.comingSoonTitle, { color: colors.tint }]}>
+                    {item.title}
+                  </ThemedText>
+                  {item.content && (
+                    <ThemedText style={[styles.comingSoonContent, { color: colors.muted }]} numberOfLines={3}>
+                      {item.content}
+                    </ThemedText>
+                  )}
+                </View>
+              ))}
+            </ScrollView>
+          </View>
+        )}
         {loading && (
           <ActivityIndicator size="large" color={colors.tint} style={{ marginTop: 32 }} />
         )}
         {!loading && plays.length === 0 && (
-          <ThemedText style={{ textAlign: 'center', marginTop: 32 }}>No plays found.</ThemedText>
+          <ThemedText style={{ textAlign: 'center', marginTop: 32 }}>No Talks found.</ThemedText>
         )}
         {plays.map((play) => (
           <TouchableOpacity
@@ -69,7 +105,7 @@ export default function PlaysScreen() {
               )}
               <View style={[styles.readMore, { borderTopColor: colors.border }]}>
                 <ThemedText style={[styles.readMoreText, { color: colors.tint }]}>
-                  Read play →
+                  Read More →
                 </ThemedText>
               </View>
             </View>
@@ -129,5 +165,34 @@ const styles = StyleSheet.create({
   readMoreText: {
     fontSize: 14,
     fontWeight: '600',
+  },
+  comingSoonSection: {
+    marginBottom: 20,
+  },
+  comingSoonLabel: {
+    fontSize: 11,
+    fontWeight: '700',
+    letterSpacing: 1.2,
+    marginBottom: 10,
+  },
+  comingSoonScroll: {
+    gap: 10,
+  },
+  comingSoonCard: {
+    borderRadius: 10,
+    borderWidth: 1,
+    paddingHorizontal: 14,
+    paddingVertical: 10,
+    minWidth: 120,
+    maxWidth: 200,
+  },
+  comingSoonTitle: {
+    fontSize: 13,
+    fontWeight: '600',
+    marginBottom: 4,
+  },
+  comingSoonContent: {
+    fontSize: 12,
+    lineHeight: 18,
   },
 });
