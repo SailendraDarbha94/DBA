@@ -35,9 +35,11 @@ export default function PoemDetailScreen() {
     fetchPoem();
   }, [id]);
 
-  const renderText = (text: string | undefined) => {
+  const renderText = (text: string | string[] | undefined) => {
     if (!text) return null;
-    const lines = text.replace(/\\n/g, '\n').split('\n');
+    const lines = Array.isArray(text)
+      ? text
+      : text.replace(/\\n/g, '\n').split('\n');
     return lines.map((line, index) => (
       <ThemedText key={`line-${index}`} style={[styles.bodyLine, { fontFamily: 'TeluguFont' }]}>
         {line}

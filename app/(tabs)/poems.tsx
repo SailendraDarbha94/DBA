@@ -102,7 +102,9 @@ export default function PoemsScreen() {
                   style={[styles.cardExcerpt, { color: colors.muted, fontFamily: 'TeluguFont' }]}
                   numberOfLines={3}
                 >
-                  {poem.excerpt.replace(/\\n/g, ' ').replace(/\n/g, ' ')}
+                  {Array.isArray(poem.excerpt)
+                    ? poem.excerpt.join(' ')
+                    : poem.excerpt.replace(/\\n/g, ' ').replace(/\n/g, ' ')}
                 </ThemedText>
               )}
               <View style={[styles.readMore, { borderTopColor: colors.border }]}>
